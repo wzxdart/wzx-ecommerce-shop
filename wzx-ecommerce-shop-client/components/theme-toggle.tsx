@@ -1,8 +1,8 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { PiMoon, PiSun } from "react-icons/pi";
 
 import { cn } from "@/lib/cn";
 
@@ -17,10 +17,12 @@ const ThemeToggle = () => {
   if (!mounted) return null;
 
   if (theme === "light")
-    return <Sun onClick={() => setTheme("dark")} className={cn("h-7")} />;
+    return <PiSun onClick={() => setTheme("dark")} className={cn("h-8 w-8")} />;
 
   if (theme === "dark")
-    return <Moon onClick={() => setTheme("light")} className={cn("h-7")} />;
+    return (
+      <PiMoon onClick={() => setTheme("light")} className={cn("h-8 w-8")} />
+    );
 };
 
 export default ThemeToggle;

@@ -20,10 +20,10 @@ interface RootLayoutProps {
 
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen w-screen bg-slate-50 text-slate-950 dark:bg-slate-950 dark:text-slate-50",
+          "box-border h-screen w-screen bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50",
           poppins.className,
         )}
       >
