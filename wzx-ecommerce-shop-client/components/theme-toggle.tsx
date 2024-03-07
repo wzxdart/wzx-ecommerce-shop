@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { PiMoon, PiSun } from "react-icons/pi";
 
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
 const ThemeToggle = () => {
@@ -17,11 +18,19 @@ const ThemeToggle = () => {
   if (!mounted) return null;
 
   if (theme === "light")
-    return <PiSun onClick={() => setTheme("dark")} className={cn("h-8 w-8")} />;
+    return (
+      <PiSun
+        onClick={() => setTheme("dark")}
+        className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+      />
+    );
 
   if (theme === "dark")
     return (
-      <PiMoon onClick={() => setTheme("light")} className={cn("h-8 w-8")} />
+      <PiMoon
+        onClick={() => setTheme("light")}
+        className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+      />
     );
 };
 

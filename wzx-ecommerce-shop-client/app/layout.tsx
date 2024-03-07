@@ -3,9 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
+import ThemeProvider from "@/app/_providers/theme-provider";
 import { cn } from "@/lib/cn";
-
-import ThemeProvider from "./_providers/theme-provider";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
