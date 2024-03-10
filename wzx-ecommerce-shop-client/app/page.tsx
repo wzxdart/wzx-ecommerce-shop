@@ -11,8 +11,8 @@ const RootPage = () => {
           <h1 className="text-xl">Root Page</h1>
           <ThemeToggle />
           <div className="flex items-center gap-6">
-            <Link href="/login">Login</Link>
-            <Link href="/register">Register</Link>
+            <Link href="/auth/login">Login</Link>
+            <Link href="/auth/register">Register</Link>
           </div>
         </div>
       </Container>
