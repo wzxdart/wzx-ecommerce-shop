@@ -27,6 +27,9 @@ export const REGISTERSCHEMA_SUCCESS = "success, code sent to email";
 export const REGISTER_USER_SUCCESS_MESSAGE = "user created successfully";
 export const EXIST_USER_ERROR_MESSAGE = "user already exist";
 
+export const INVALID_LOGIN_DATA_MESSAGE = "password or email is invalid";
+export const UNDEFINED_LOGIN_ERROR_MESSAGE = "something went wrong";
+
 export const EMAIL_REQUIRED_MESSAGE = "email is required";
 export const PASSORD_REQUIRED_MESSAGE = "password is required";
 export const PASSWORD_REQUIRED_MESSAGE = "confirm password is required";
