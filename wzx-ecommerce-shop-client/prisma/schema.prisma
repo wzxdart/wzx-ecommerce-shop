@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  firstName     String?   @map("first_name")
+  lastName      String?   @map("last_name")
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  passwordHash  String?   @map("password_hash")
+  accounts      Account[]
+}
+
+model Account {
+  id                Int     @id @default(autoincrement())
+  userId            Int
+  tokenId           String? @map("token_id") @db.Text
+  refreshToken      String? @map("refresh_token") @db.Text
+  accessToken       String? @map("access_token") @db.Text
+  tokenType         String? @map("token_type")
+  sessionState      String? @map("session_state")
+  providerAccountId Int     @map("provider_account_id")
+  expiresAt         Int?    @map("expires_at")
+  provider          String
+  type              String
+  scope             String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}

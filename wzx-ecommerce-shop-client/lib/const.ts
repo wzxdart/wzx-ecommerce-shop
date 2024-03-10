@@ -1,4 +1,8 @@
+//@todo rename
+
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export const HASH_SALT_ROUNDS = 10;
 
 export const EMAIL_MIN_LENGTH = 4;
 export const EMAIL_MAX_LENGTH = 254;
@@ -20,6 +24,8 @@ export const LOGINSCHEMA_SUCCESS = "success, code sent to email";
 
 export const REGISTERSCHEMA_ERROR = "invalid field";
 export const REGISTERSCHEMA_SUCCESS = "success, code sent to email";
+export const REGISTER_USER_SUCCESS_MESSAGE = "user created successfully";
+export const EXIST_USER_ERROR_MESSAGE = "user already exist";
 
 export const EMAIL_REQUIRED_MESSAGE = "email is required";
 export const PASSORD_REQUIRED_MESSAGE = "password is required";
