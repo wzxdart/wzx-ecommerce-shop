@@ -33,9 +33,11 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <main className="mx-auto max-w-[116rem] px-4 md:px-6 xl:px-8">
+            {children}
+          </main>
+          <Toaster />
         </ThemeProvider>
-        <Toaster />
       </body>
     </html>
   );

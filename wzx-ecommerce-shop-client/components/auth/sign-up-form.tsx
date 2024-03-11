@@ -15,16 +15,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { register } from "@/helpers/actions/register";
-import registerShema from "@/schemas/register-schema";
+import { SignUp } from "@/helpers/actions/sign-up";
+import signUpShema from "@/schemas/sign-up-schema";
 
-const RegisterForm = () => {
+const SignUpForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const form = useForm<z.infer<typeof registerShema>>({
-    resolver: zodResolver(registerShema),
+  const form = useForm<z.infer<typeof signUpShema>>({
+    resolver: zodResolver(signUpShema),
     defaultValues: {
       email: "",
       password: "",
@@ -34,12 +34,12 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof registerShema>) => {
+  const onSubmit = async (values: z.infer<typeof signUpShema>) => {
     setError("");
     setSuccess("");
 
     startTransition(async () => {
-      const data = await register(values);
+      const data = await SignUp(values);
       setError(data.error);
       setSuccess(data.success);
 
@@ -68,7 +68,7 @@ const RegisterForm = () => {
                   type="text"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-9" />
+              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -86,7 +86,7 @@ const RegisterForm = () => {
                   type="text"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-9" />
+              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -104,7 +104,7 @@ const RegisterForm = () => {
                   type="email"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-9" />
+              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -122,7 +122,7 @@ const RegisterForm = () => {
                   type="password"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-9" />
+              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -140,12 +140,12 @@ const RegisterForm = () => {
                   type="password"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-9" />
+              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
 
-        <Button disabled={isPending} type="submit" className="w-full">
+        <Button disabled={isPending} type="submit" className="mt-5 w-full">
           Create an account
         </Button>
       </form>
@@ -153,4 +153,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default SignUpForm;

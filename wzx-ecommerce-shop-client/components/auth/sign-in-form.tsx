@@ -18,16 +18,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { login } from "@/helpers/actions/login";
-import loginSchema from "@/schemas/login-schema";
+import { SignIn } from "@/helpers/actions/sign-in";
+import signInSchema from "@/schemas/sign-in-schema";
 
-const LoginForm = () => {
+const SignInForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<z.infer<typeof signInSchema>>({
+    resolver: zodResolver(signInSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -35,12 +35,12 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof loginSchema>) => {
+  const onSubmit = async (values: z.infer<typeof signInSchema>) => {
     setError("");
     setSuccess("");
 
     startTransition(async () => {
-      const data = await login(values);
+      const data = await SignIn(values);
       setError(data.error);
       setSuccess(data.success);
 
@@ -69,7 +69,7 @@ const LoginForm = () => {
                   type="email"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-9" />
+              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -87,7 +87,7 @@ const LoginForm = () => {
                   type="password"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-9" />
+              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -97,7 +97,7 @@ const LoginForm = () => {
             control={form.control}
             name="remember"
             render={({ field }) => (
-              <FormItem className="flex items-center gap-1">
+              <FormItem className="flex items-center gap-2">
                 <FormControl>
                   <Checkbox
                     checked={field.value}
@@ -114,7 +114,7 @@ const LoginForm = () => {
           </Button>
         </div>
 
-        <Button disabled={isPending} type="submit" className="w-full">
+        <Button disabled={isPending} type="submit" className="mt-5 w-full">
           Login
         </Button>
       </form>
@@ -122,4 +122,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignInForm;

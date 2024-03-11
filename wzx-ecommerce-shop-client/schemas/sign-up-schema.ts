@@ -25,7 +25,7 @@ import {
   PASSWORD_MIN_LENGTH_MESSAGE,
 } from "@/lib/const";
 
-const registerShema = z
+const signUpShema = z
   .object({
     firstName: z
       .string()
@@ -91,4 +91,4 @@ const registerShema = z
     path: ["confirmPassword"],
   });
 
-export default registerShema;
+export default signUpShema;

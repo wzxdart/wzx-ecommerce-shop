@@ -1,5 +1,5 @@
 import CardWrapper from "@/components/auth/card-wrapper";
-import LoginForm from "@/components/auth/login-form";
+import SignInForm from "@/components/auth/sign-in-form";
 import SocialLinks from "@/components/auth/social-links";
 import Separated from "@/components/separated";
 
@@ -8,11 +8,11 @@ const LoginPage = () => {
     <CardWrapper
       title="Welcome back"
       description="We are excited to have your back. Log in now and access your account"
-      linkHref="/auth/register"
+      linkHref="/auth/sign-up"
       linkText="Dont't have an account yet? Register"
     >
       <div>
-        <LoginForm />
+        <SignInForm />
         <Separated />
         <SocialLinks />
       </div>

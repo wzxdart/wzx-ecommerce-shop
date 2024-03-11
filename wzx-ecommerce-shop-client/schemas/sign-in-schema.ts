@@ -15,7 +15,7 @@ import {
   PASSWORD_MIN_LENGTH_MESSAGE,
 } from "@/lib/const";
 
-const loginSchema = z.object({
+const signInSchema = z.object({
   email: z
     .string()
     .refine((field) => field.trim().length > 0, {
@@ -44,4 +44,4 @@ const loginSchema = z.object({
   remember: z.boolean().optional(),
 });
 
-export default loginSchema;
+export default signInSchema;

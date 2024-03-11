@@ -17,21 +17,17 @@ const ThemeToggle = () => {
 
   if (!mounted) return null;
 
-  if (theme === "light")
-    return (
-      <PiSun
-        onClick={() => setTheme("dark")}
-        className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
-      />
-    );
-
-  if (theme === "dark")
-    return (
-      <PiMoon
-        onClick={() => setTheme("light")}
-        className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
-      />
-    );
+  return theme === "light" ? (
+    <PiSun
+      onClick={() => setTheme("dark")}
+      className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+    />
+  ) : (
+    <PiMoon
+      onClick={() => setTheme("light")}
+      className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+    />
+  );
 };
 
 export default ThemeToggle;

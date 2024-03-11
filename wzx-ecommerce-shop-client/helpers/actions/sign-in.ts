@@ -11,10 +11,10 @@ import {
   UNDEFINED_LOGIN_ERROR_MESSAGE,
 } from "@/lib/const";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import loginSchema from "@/schemas/login-schema";
+import signInSchema from "@/schemas/sign-in-schema";
 
-export const login = async (values: z.infer<typeof loginSchema>) => {
-  const validatedFields = loginSchema.safeParse(values);
+export const SignIn = async (values: z.infer<typeof signInSchema>) => {
+  const validatedFields = signInSchema.safeParse(values);
 
   if (!validatedFields.success) return { error: LOGINSCHEMA_ERROR };
 

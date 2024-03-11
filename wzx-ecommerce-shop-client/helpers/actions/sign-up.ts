@@ -11,10 +11,10 @@ import {
   REGISTER_USER_SUCCESS_MESSAGE,
   REGISTERSCHEMA_ERROR,
 } from "@/lib/const";
-import registerShema from "@/schemas/register-schema";
+import signUpShema from "@/schemas/sign-up-schema";
 
-export const register = async (values: z.infer<typeof registerShema>) => {
-  const validatedFields = registerShema.safeParse(values);
+export const SignUp = async (values: z.infer<typeof signUpShema>) => {
+  const validatedFields = signUpShema.safeParse(values);
 
   if (!validatedFields.success) return { success: REGISTERSCHEMA_ERROR };
 
