@@ -31,6 +31,7 @@ export const SignIn = async (values: z.infer<typeof signInSchema>) => {
       if (error.type === "CredentialsSignin")
         return { error: INVALID_LOGIN_DATA_MESSAGE };
 
+      //@todo add message email not verificated
       return { error: UNDEFINED_LOGIN_ERROR_MESSAGE };
     }
 

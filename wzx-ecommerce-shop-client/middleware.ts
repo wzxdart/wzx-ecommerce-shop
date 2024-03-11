@@ -14,22 +14,20 @@ export default auth((req) => {
   const { nextUrl } = req;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(API_AUTH_ROUTE);
-  const isLogined = Boolean(req.auth);
+  const isSignIned = Boolean(req.auth);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) return;
 
   if (isAuthRoute) {
-    if (isLogined)
+    if (isSignIned)
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-    return;
+    else return;
   }
 
-  if (!isLogined && !isPublicRoute)
+  if (!isSignIned && !isPublicRoute)
     return Response.redirect(new URL("/auth/sign-in", nextUrl));
-
-  return;
 });
 
 export const config = {

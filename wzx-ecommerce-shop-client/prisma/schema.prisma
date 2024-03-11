@@ -7,20 +7,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  USER
+  CONTENT_MANAGER
+  ADMIN
+}
+
 model User {
-  id            Int       @id @default(autoincrement())
+  id            String    @id @default(cuid())
   firstName     String?   @map("first_name")
   lastName      String?   @map("last_name")
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
   passwordHash  String?   @map("password_hash")
+  role          UserRole  @default(USER)
   accounts      Account[]
 }
 
 model Account {
-  id                Int     @id @default(autoincrement())
-  userId            Int
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
   tokenId           String? @map("token_id") @db.Text
   refreshToken      String? @map("refresh_token") @db.Text
   accessToken       String? @map("access_token") @db.Text

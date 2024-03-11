@@ -1,4 +1,4 @@
-export const getUserById = async (id: number) => {
+export const getUserById = async (id: string) => {
   try {
     const user = await prisma?.user.findUnique({ where: { id } });
     return user;

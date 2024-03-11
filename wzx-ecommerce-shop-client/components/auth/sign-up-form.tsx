@@ -146,7 +146,7 @@ const SignUpForm = () => {
         />
 
         <Button disabled={isPending} type="submit" className="mt-5 w-full">
-          Create an account
+          Sign up
         </Button>
       </form>
     </Form>

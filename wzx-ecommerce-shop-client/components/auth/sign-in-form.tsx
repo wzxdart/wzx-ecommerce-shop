@@ -115,7 +115,7 @@ const SignInForm = () => {
         </div>
 
         <Button disabled={isPending} type="submit" className="mt-5 w-full">
-          Login
+          Sign In
         </Button>
       </form>
     </Form>

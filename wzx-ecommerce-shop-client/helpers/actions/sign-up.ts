@@ -22,7 +22,7 @@ export const SignUp = async (values: z.infer<typeof signUpShema>) => {
   const passwordHash = await bcrypt.hash(password, HASH_SALT_ROUNDS);
   const isExistUser = await getUserByEmail(email);
 
-  if (isExistUser !== null) return { success: EXIST_USER_ERROR_MESSAGE };
+  if (!isExistUser) return { success: EXIST_USER_ERROR_MESSAGE };
 
   await prisma.user.create({
     data: {

@@ -33,8 +33,7 @@ export default {
           return passordMatch ? user : null;
         }
 
-        //@todo fix
-        return null as any;
+        return null;
       },
     }),
   ],
