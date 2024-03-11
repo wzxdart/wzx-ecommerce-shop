@@ -1,6 +1,6 @@
 import CardWrapper from "@/components/auth/card-wrapper";
+import SocialLinks from "@/components/auth/sign-in-provider";
 import SignUpForm from "@/components/auth/sign-up-form";
-import SocialLinks from "@/components/auth/social-links";
 import Separated from "@/components/separated";
 
 const RegisterPage = () => {

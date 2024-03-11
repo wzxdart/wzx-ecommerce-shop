@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { SignUp } from "@/helpers/actions/sign-up";
+import { signUp } from "@/helpers/actions/sign-up";
 import signUpShema from "@/schemas/sign-up-schema";
 
 const SignUpForm = () => {
@@ -29,8 +29,7 @@ const SignUpForm = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      firstName: "",
-      lastName: "",
+      name: "",
     },
   });
 
@@ -39,7 +38,7 @@ const SignUpForm = () => {
     setSuccess("");
 
     startTransition(async () => {
-      const data = await SignUp(values);
+      const data = await signUp(values);
       setError(data.error);
       setSuccess(data.success);
 
@@ -57,32 +56,14 @@ const SignUpForm = () => {
       >
         <FormField
           control={form.control}
-          name="firstName"
+          name="name"
           render={({ field }) => (
             <FormItem className="relative">
               <FormControl>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="john"
-                  type="text"
-                />
-              </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="lastName"
-          render={({ field }) => (
-            <FormItem className="relative">
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="doe"
+                  placeholder="name"
                   type="text"
                 />
               </FormControl>
@@ -100,7 +81,7 @@ const SignUpForm = () => {
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="john.doe@example.com"
+                  placeholder="your.email@example.com"
                   type="email"
                 />
               </FormControl>

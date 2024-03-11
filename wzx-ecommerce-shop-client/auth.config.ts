@@ -1,20 +1,18 @@
 import bcrypt from "bcryptjs";
 import { NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
+import google from "next-auth/providers/google";
 
 import signInSchema from "@/schemas/sign-in-schema";
 
 import { getUserByEmail } from "./helpers/data/user";
 
-// @todo
-// import facebook from "next-auth/providers/facebook";
-// import google from "next-auth/providers/google";
-// import apple from "next-auth/providers/apple";
-
 export default {
   providers: [
-    //@todo add more providers
-    // apple, facebook, google
+    google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     credentials({
       async authorize(credentials) {
         const validatedFields = signInSchema.safeParse(credentials);

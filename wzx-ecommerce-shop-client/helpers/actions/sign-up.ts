@@ -13,7 +13,7 @@ import {
 } from "@/lib/const";
 import signUpShema from "@/schemas/sign-up-schema";
 
-export const SignUp = async (values: z.infer<typeof signUpShema>) => {
+export const signUp = async (values: z.infer<typeof signUpShema>) => {
   const validatedFields = signUpShema.safeParse(values);
 
   if (!validatedFields.success) return { success: REGISTERSCHEMA_ERROR };

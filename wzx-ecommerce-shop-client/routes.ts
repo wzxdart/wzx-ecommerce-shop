@@ -1,4 +1,4 @@
-export const DEFAULT_LOGIN_REDIRECT = "/settings";
+export const DEFAULT_SIGNIN_REDIRECT = "/settings";
 
 export const API_AUTH_ROUTE = "/api/auth";
 

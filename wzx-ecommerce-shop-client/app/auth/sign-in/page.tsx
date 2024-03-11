@@ -1,6 +1,6 @@
 import CardWrapper from "@/components/auth/card-wrapper";
 import SignInForm from "@/components/auth/sign-in-form";
-import SocialLinks from "@/components/auth/social-links";
+import SocialLinks from "@/components/auth/sign-in-provider";
 import Separated from "@/components/separated";
 
 const LoginPage = () => {

@@ -1,12 +1,12 @@
 import { auth } from "@/auth";
-import SignOutForm from "@/components/auth/sign-out-form";
+import SignOut from "@/components/auth/sign-out";
 
 const SettingsPage = async () => {
   const session = await auth();
 
   return (
     <>
-      <SignOutForm />
+      <SignOut />
       {JSON.stringify(session)}
     </>
   );

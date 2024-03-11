@@ -1,7 +1,7 @@
 "use server";
 
-import { signOut } from "@/auth";
+import { signOut as nextAuthSignOut } from "@/auth";
 
-export const SignOut = async () => {
-  await signOut();
+export const signOut = async () => {
+  await nextAuthSignOut();
 };

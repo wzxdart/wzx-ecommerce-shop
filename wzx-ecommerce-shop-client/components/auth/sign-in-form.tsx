@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
-import { SignIn } from "@/helpers/actions/sign-in";
+import { signIn } from "@/helpers/actions/sign-in";
 import signInSchema from "@/schemas/sign-in-schema";
 
 const SignInForm = () => {
@@ -40,7 +40,7 @@ const SignInForm = () => {
     setSuccess("");
 
     startTransition(async () => {
-      const data = await SignIn(values);
+      const data = await signIn(values);
       setError(data.error);
       setSuccess(data.success);
 
@@ -65,7 +65,7 @@ const SignInForm = () => {
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="john.doe@example.com"
+                  placeholder="your.email@example.com"
                   type="email"
                 />
               </FormControl>

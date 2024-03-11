@@ -8,11 +8,11 @@ import {
   EMAIL_MIN_LENGTH_MESSAGE,
   EMAIL_REGEX,
   EMAIL_REQUIRED_MESSAGE,
-  FIRSTNAME_MAX_LENGTH,
-  PASSORD_REQUIRED_MESSAGE,
+  PASSWORD_MAX_LENGTH,
   PASSWORD_MAX_LENGTH_MESSAGE,
   PASSWORD_MIN_LENGTH,
   PASSWORD_MIN_LENGTH_MESSAGE,
+  PASSWORD_REQUIRED_MESSAGE,
 } from "@/lib/const";
 
 const signInSchema = z.object({
@@ -33,12 +33,12 @@ const signInSchema = z.object({
   password: z
     .string()
     .refine((field) => field.trim().length > 0, {
-      message: PASSORD_REQUIRED_MESSAGE,
+      message: PASSWORD_REQUIRED_MESSAGE,
     })
     .refine((field) => field.trim().length >= PASSWORD_MIN_LENGTH, {
       message: PASSWORD_MIN_LENGTH_MESSAGE,
     })
-    .refine((field) => field.trim().length <= FIRSTNAME_MAX_LENGTH, {
+    .refine((field) => field.trim().length <= PASSWORD_MAX_LENGTH, {
       message: PASSWORD_MAX_LENGTH_MESSAGE,
     }),
   remember: z.boolean().optional(),
