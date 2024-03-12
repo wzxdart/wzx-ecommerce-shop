@@ -31,14 +31,18 @@ export const {
 
       return session;
     },
-    // signIn: async ({ user }) => {
-    //   //@todo fix
-    //   const isExistUser = await getUserById(user.id as string);
-
-    //   if (!isExistUser || !isExistUser.emailVerified) return false;
-
-    //   return true;
-    // },
+  },
+  events: {
+    linkAccount: async ({ user }) => {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
+    },
+  },
+  pages: {
+    signIn: "/auth/sign-in",
+    error: "/auth/error",
   },
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },

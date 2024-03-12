@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,6 +23,12 @@ import { signIn } from "@/helpers/actions/sign-in";
 import signInSchema from "@/schemas/sign-in-schema";
 
 const SignInForm = () => {
+  const searchParams = useSearchParams();
+  const oauthError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "enail already use"
+      : "";
+
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -45,7 +52,7 @@ const SignInForm = () => {
       setSuccess(data.success);
 
       toast({
-        title: data.error || data.success,
+        title: data.error || oauthError || data.success,
       });
     });
   };

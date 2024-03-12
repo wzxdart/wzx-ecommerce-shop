@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,6 +20,12 @@ import { signUp } from "@/helpers/actions/sign-up";
 import signUpShema from "@/schemas/sign-up-schema";
 
 const SignUpForm = () => {
+  const searchParams = useSearchParams();
+  const oauthError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "enail already use"
+      : "";
+
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -43,7 +50,7 @@ const SignUpForm = () => {
       setSuccess(data.success);
 
       toast({
-        title: data.error || data.success,
+        title: data.error || oauthError || data.success,
       });
     });
   };

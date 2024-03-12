@@ -17,8 +17,8 @@ interface CardWrapperProps {
   title?: string;
   description?: string;
   children: React.ReactNode;
-  linkHref: string;
-  linkText: string;
+  linkHref?: string;
+  linkText?: string;
 }
 
 const CardWrapper: React.FC<CardWrapperProps> = ({
@@ -29,16 +29,18 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
   linkText,
 }) => {
   return (
-    <Card className={cn("")}>
+    <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        {title && <CardTitle>{title}</CardTitle>}
+        {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent>{children}</CardContent>
       <CardFooter>
-        <Button variant={"link"}>
-          <Link href={linkHref}>{linkText}</Link>
-        </Button>
+        {linkHref && (
+          <Button variant={"link"}>
+            <Link href={linkHref}>{linkText}</Link>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

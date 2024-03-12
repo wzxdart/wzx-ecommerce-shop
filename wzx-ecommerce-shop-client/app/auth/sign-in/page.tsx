@@ -3,13 +3,13 @@ import SignInForm from "@/components/auth/sign-in-form";
 import SocialLinks from "@/components/auth/sign-in-provider";
 import Separated from "@/components/separated";
 
-const LoginPage = () => {
+const SignInPage = () => {
   return (
     <CardWrapper
       title="Welcome back"
-      description="We are excited to have your back. Log in now and access your account"
+      description="We are excited to have your back. Sign in now and access your account"
       linkHref="/auth/sign-up"
-      linkText="Dont't have an account yet? Register"
+      linkText="Dont't have an account yet? Sign up"
     >
       <div>
         <SignInForm />
@@ -20,4 +20,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignInPage;
