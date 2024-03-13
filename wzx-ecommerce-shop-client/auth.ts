@@ -31,6 +31,15 @@ export const {
 
       return session;
     },
+    signIn: async ({ user, account }) => {
+      if (account?.provider !== "credentials") return true;
+
+      const isExistUser = await getUserById(user.id as string);
+
+      if (!isExistUser?.emailVerified) return false;
+
+      return true;
+    },
   },
   events: {
     linkAccount: async ({ user }) => {

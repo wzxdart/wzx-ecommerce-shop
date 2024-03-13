@@ -17,21 +17,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { signUp } from "@/helpers/actions/sign-up";
-import signUpShema from "@/schemas/sign-up-schema";
+import { signUpSchema } from "@/schemas/sign-up-schema";
 
 const SignUpForm = () => {
   const searchParams = useSearchParams();
   const oauthError =
     searchParams.get("error") === "OAuthAccountNotLinked"
-      ? "enail already use"
+      ? "email already use"
       : "";
 
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const form = useForm<z.infer<typeof signUpShema>>({
-    resolver: zodResolver(signUpShema),
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -40,7 +40,7 @@ const SignUpForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof signUpShema>) => {
+  const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
     setError("");
     setSuccess("");
 

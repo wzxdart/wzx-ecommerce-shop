@@ -20,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { signIn } from "@/helpers/actions/sign-in";
-import signInSchema from "@/schemas/sign-in-schema";
+import { signInSchema } from "@/schemas/sign-in-schema";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();

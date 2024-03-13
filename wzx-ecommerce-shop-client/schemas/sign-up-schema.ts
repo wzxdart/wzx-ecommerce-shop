@@ -22,7 +22,7 @@ import {
   PASSWORD_REQUIRED_MESSAGE,
 } from "@/lib/const";
 
-const signUpShema = z
+export const signUpSchema = z
   .object({
     name: z
       .string()
@@ -76,5 +76,3 @@ const signUpShema = z
     message: PASSWORD_CONFIRM_ERROR_MESSAGE,
     path: ["confirmPassword"],
   });
-
-export default signUpShema;

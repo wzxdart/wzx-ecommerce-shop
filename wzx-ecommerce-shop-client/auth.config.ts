@@ -3,7 +3,7 @@ import { NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
 import google from "next-auth/providers/google";
 
-import signInSchema from "@/schemas/sign-in-schema";
+import { signInSchema } from "@/schemas/sign-in-schema";
 
 import { getUserByEmail } from "./helpers/data/user";
 

@@ -15,7 +15,7 @@ import {
   PASSWORD_REQUIRED_MESSAGE,
 } from "@/lib/const";
 
-const signInSchema = z.object({
+export const signInSchema = z.object({
   email: z
     .string()
     .refine((field) => field.trim().length > 0, {
@@ -43,5 +43,3 @@ const signInSchema = z.object({
     }),
   remember: z.boolean().optional(),
 });
-
-export default signInSchema;
