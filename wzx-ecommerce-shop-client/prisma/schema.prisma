@@ -13,7 +13,6 @@ enum UserRole {
   ADMIN
 }
 
-//@todo add map
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -45,6 +44,15 @@ model Account {
 }
 
 model VerificationToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+
+  @@unique([email, token])
+}
+
+model ResetToken {
   id        String   @id @default(cuid())
   email     String
   token     String   @unique

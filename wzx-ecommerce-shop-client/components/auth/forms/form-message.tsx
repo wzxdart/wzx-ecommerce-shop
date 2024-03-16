@@ -1,3 +1,5 @@
+"use client";
+
 import { CiCircleAlert as Alert, CiCircleCheck as Check } from "react-icons/ci";
 
 import { buttonVariants } from "@/components/ui/button";

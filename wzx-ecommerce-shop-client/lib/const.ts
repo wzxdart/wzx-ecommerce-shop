@@ -1,6 +1,7 @@
-export const url = "http://localhost:3000";
+export const BASE_URL = "http://localhost:3000";
 
 export const VERIFICATION_TOKEN_LIFECYCLE_TIME_IN_MILLISECONDS = 3600000;
+export const RESET_TOKEN_LIFECYCLE_TIME_IN_MILLISECONDS = 3600000;
 
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

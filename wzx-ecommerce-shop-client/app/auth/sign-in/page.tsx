@@ -1,6 +1,6 @@
-import CardWrapper from "@/components/auth/card-wrapper";
 import SignInForm from "@/components/auth/forms/sign-in-form";
-import Provider from "@/components/auth/provider";
+import SignInProvider from "@/components/auth/sign-in-provider";
+import CardWrapper from "@/components/card-wrapper";
 import Separated from "@/components/separated";
 
 const SignInPage = () => {
@@ -14,7 +14,7 @@ const SignInPage = () => {
       <div>
         <SignInForm />
         <Separated>or</Separated>
-        <Provider />
+        <SignInProvider />
       </div>
     </CardWrapper>
   );

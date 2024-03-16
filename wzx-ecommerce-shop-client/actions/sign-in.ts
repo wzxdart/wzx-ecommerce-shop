@@ -4,16 +4,16 @@ import { AuthError } from "next-auth";
 import { z } from "zod";
 
 import { signIn as nextAuthSignIn } from "@/auth";
-import { verificationEmail } from "@/helpers/resend/send";
+import { sendVerificationEmail } from "@/helpers/resend/send";
 import { getUserByEmail } from "@/helpers/user";
-import { generateVerificationToken } from "@/helpers/verification-token";
+import { createVerificationToken } from "@/helpers/verification-token";
 import { DEFAULT_SIGNIN_REDIRECT } from "@/routes";
 import { signInSchema } from "@/schemas/sign-in-schema";
 
 export const signIn = async (values: z.infer<typeof signInSchema>) => {
   const validatedFields = signInSchema.safeParse(values);
 
-  if (!validatedFields.success) return { error: "invalid input fields" };
+  if (!validatedFields.success) return { error: "invalid fields" };
 
   const { email, password } = validatedFields.data;
   const isExistUser = await getUserByEmail(email);
@@ -22,13 +22,14 @@ export const signIn = async (values: z.infer<typeof signInSchema>) => {
     return { error: "email doesn't exist" };
 
   if (!isExistUser.emailVerified) {
-    const verificationToken = await generateVerificationToken(
-      isExistUser.email,
+    const verificationToken = await createVerificationToken(isExistUser.email);
+
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token,
     );
 
-    await verificationEmail(verificationToken.email, verificationToken.token);
-
-    return { success: "confirm email" };
+    return { success: "confirm sent on email" };
   }
 
   try {
@@ -40,7 +41,7 @@ export const signIn = async (values: z.infer<typeof signInSchema>) => {
   } catch (error) {
     if (error instanceof AuthError) {
       if (error.type === "CredentialsSignin")
-        return { error: "invalid email or password" };
+        return { error: "invalid fields" };
 
       return { error: "email not confirmed" };
     }
@@ -48,5 +49,5 @@ export const signIn = async (values: z.infer<typeof signInSchema>) => {
     throw error;
   }
 
-  return { success: "success" };
+  return { success: "success sign in" };
 };

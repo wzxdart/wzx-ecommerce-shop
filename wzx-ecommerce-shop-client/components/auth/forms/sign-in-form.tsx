@@ -138,7 +138,7 @@ const SignInForm = () => {
               </FormItem>
             )}
           />
-          <Button variant={"link"}>
+          <Button variant={"link"} asChild>
             <Link href="/auth/reset">forgot your password?</Link>
           </Button>
         </div>
@@ -148,7 +148,7 @@ const SignInForm = () => {
         </div>
 
         <Button disabled={isPending} type="submit" className="w-full">
-          sign In
+          sign in
         </Button>
       </form>
     </Form>

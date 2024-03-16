@@ -1,7 +1,5 @@
-import CardWrapper from "@/components/auth/card-wrapper";
 import SignUpForm from "@/components/auth/forms/sign-up-form";
-import SocialLinks from "@/components/auth/provider";
-import Separated from "@/components/separated";
+import CardWrapper from "@/components/card-wrapper";
 
 const SignUpPage = () => {
   return (

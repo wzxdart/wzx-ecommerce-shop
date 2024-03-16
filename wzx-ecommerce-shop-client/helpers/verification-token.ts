@@ -5,8 +5,8 @@ import { VERIFICATION_TOKEN_LIFECYCLE_TIME_IN_MILLISECONDS } from "@/lib/const";
 
 export const getVerificationTokenByEmail = async (email: string) => {
   try {
-    const verificationToken = await prisma.verificationToken.findFirst({
-      where: { email },
+    const verificationToken = await prisma?.verificationToken.findFirst({
+      where: { email: email },
     });
 
     return verificationToken;
@@ -17,8 +17,8 @@ export const getVerificationTokenByEmail = async (email: string) => {
 
 export const getVerificationTokenByToken = async (token: string) => {
   try {
-    const verificationToken = await prisma.verificationToken.findUnique({
-      where: { token },
+    const verificationToken = await prisma?.verificationToken.findUnique({
+      where: { token: token },
     });
 
     return verificationToken;
@@ -27,19 +27,20 @@ export const getVerificationTokenByToken = async (token: string) => {
   }
 };
 
-export const generateVerificationToken = async (email: string) => {
+export const createVerificationToken = async (email: string) => {
   const token = uuid();
-  const expiresAt = new Date(
-    new Date().getTime() + VERIFICATION_TOKEN_LIFECYCLE_TIME_IN_MILLISECONDS,
-  );
   const isExistToken = await getVerificationTokenByEmail(email);
 
   if (isExistToken)
-    await prisma.verificationToken.delete({
+    await prisma?.verificationToken.delete({
       where: { id: isExistToken.id },
     });
 
-  const verificationToken = await prisma.verificationToken.create({
+  const expiresAt = new Date(
+    new Date().getTime() + VERIFICATION_TOKEN_LIFECYCLE_TIME_IN_MILLISECONDS,
+  );
+
+  const verificationToken = await prisma?.verificationToken.create({
     data: {
       email: email,
       token: token,

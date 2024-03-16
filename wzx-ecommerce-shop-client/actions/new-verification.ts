@@ -4,7 +4,7 @@ import { prisma } from "@/helpers/prisma";
 import { getUserByEmail } from "@/helpers/user";
 import { getVerificationTokenByToken } from "@/helpers/verification-token";
 
-export const verification = async (token: string) => {
+export const newVerification = async (token: string) => {
   const isExistToken = await getVerificationTokenByToken(token);
 
   if (!isExistToken) return { error: "token doesn't exist" };
@@ -29,5 +29,5 @@ export const verification = async (token: string) => {
     where: { id: isExistToken.id },
   });
 
-  return { success: "email verify" };
+  return { success: "email verified" };
 };

@@ -28,7 +28,7 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
   linkText,
 }) => {
   return (
-    <Card>
+    <Card className="max-w-[48rem]">
       <CardHeader className="flex flex-col items-center gap-3">
         {title && (
           <CardTitle className="text-xl font-medium">{title}</CardTitle>
@@ -41,8 +41,8 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
       </CardHeader>
       <CardContent>{children}</CardContent>
       <CardFooter>
-        {linkHref && (
-          <Button variant={"link"} className="w-full text-center">
+        {linkHref && linkText && (
+          <Button variant={"link"} asChild className="w-full text-center">
             <Link href={linkHref}>{linkText}</Link>
           </Button>
         )}

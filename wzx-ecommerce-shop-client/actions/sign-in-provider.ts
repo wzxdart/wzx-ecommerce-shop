@@ -14,5 +14,5 @@ export const signInProvider = async (provider: BuiltInProviderType) => {
     return { error: "something went wrong" };
   }
 
-  return { success: "success" };
+  return { success: "success sign in" };
 };

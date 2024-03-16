@@ -1,18 +1,17 @@
-import Link from "next/link";
+import CardWrapper from "@/components/card-wrapper";
 
-import CardWrapper from "@/components/auth/card-wrapper";
-import { Button } from "@/components/ui/button";
+//@todo create error page
 
 const ErrorPage = () => {
   return (
-    <CardWrapper title="auth Error" description="something went wrong">
+    <CardWrapper
+      title="auth error"
+      description="something went wrong"
+      linkHref="/auth/sign-in"
+      linkText="back to sign in"
+    >
       <div className="flex flex-col items-center justify-between">
-        <Button variant={"link"}>
-          <Link href="/auth/sign-in">sign in</Link>
-        </Button>
-        <Button variant={"link"} className="text-center">
-          <Link href="sign up">sign up</Link>
-        </Button>
+        something went wrong
       </div>
     </CardWrapper>
   );

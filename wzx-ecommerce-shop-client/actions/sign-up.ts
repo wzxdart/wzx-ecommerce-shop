@@ -4,16 +4,16 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 
 import { prisma } from "@/helpers/prisma";
-import { verificationEmail } from "@/helpers/resend/send";
+import { sendVerificationEmail } from "@/helpers/resend/send";
 import { getUserByEmail } from "@/helpers/user";
-import { generateVerificationToken } from "@/helpers/verification-token";
+import { createVerificationToken } from "@/helpers/verification-token";
 import { HASH_SALT_ROUNDS } from "@/lib/const";
 import { signUpSchema } from "@/schemas/sign-up-schema";
 
 export const signUp = async (values: z.infer<typeof signUpSchema>) => {
   const validatedFields = signUpSchema.safeParse(values);
 
-  if (!validatedFields.success) return { success: "invalid input fields" };
+  if (!validatedFields.success) return { success: "invalid fields" };
 
   const { name, email, password } = validatedFields.data;
   const passwordHash = await bcrypt.hash(password, HASH_SALT_ROUNDS);
@@ -29,9 +29,9 @@ export const signUp = async (values: z.infer<typeof signUpSchema>) => {
     },
   });
 
-  const verificationToken = await generateVerificationToken(email);
+  const verificationToken = await createVerificationToken(email);
 
-  await verificationEmail(verificationToken.email, verificationToken.token);
+  await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
-  return { success: "confirm email" };
+  return { success: "confirm sent on email" };
 };

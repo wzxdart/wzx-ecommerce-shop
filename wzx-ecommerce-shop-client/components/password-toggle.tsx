@@ -1,6 +1,10 @@
+"use client";
+
 import { PiEye, PiEyeClosed } from "react-icons/pi";
 
 import { cn } from "@/lib/cn";
+
+import { buttonVariants } from "./ui/button";
 
 interface PasswordToggleProps {
   isOpen: boolean;
@@ -14,9 +18,21 @@ const PasswordToggle: React.FC<PasswordToggleProps> = ({
   className,
 }) => {
   return isOpen ? (
-    <PiEye onClick={onClick} className={cn("h-5 w-5", className)} />
+    <PiEye
+      onClick={onClick}
+      className={cn(
+        buttonVariants({ variant: "ghost", size: "icon" }),
+        className,
+      )}
+    />
   ) : (
-    <PiEyeClosed onClick={onClick} className={cn("h-5 w-5", className)} />
+    <PiEyeClosed
+      onClick={onClick}
+      className={cn(
+        buttonVariants({ variant: "ghost", size: "icon" }),
+        className,
+      )}
+    />
   );
 };
 
