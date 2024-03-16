@@ -29,14 +29,20 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
 }) => {
   return (
     <Card>
-      <CardHeader>
-        {title && <CardTitle>{title}</CardTitle>}
-        {description && <CardDescription>{description}</CardDescription>}
+      <CardHeader className="flex flex-col items-center gap-3">
+        {title && (
+          <CardTitle className="text-xl font-medium">{title}</CardTitle>
+        )}
+        {description && (
+          <CardDescription className="text-sm font-light">
+            {description}
+          </CardDescription>
+        )}
       </CardHeader>
       <CardContent>{children}</CardContent>
       <CardFooter>
         {linkHref && (
-          <Button variant={"link"}>
+          <Button variant={"link"} className="w-full text-center">
             <Link href={linkHref}>{linkText}</Link>
           </Button>
         )}

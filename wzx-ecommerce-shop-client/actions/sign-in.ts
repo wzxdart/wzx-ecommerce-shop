@@ -4,9 +4,9 @@ import { AuthError } from "next-auth";
 import { z } from "zod";
 
 import { signIn as nextAuthSignIn } from "@/auth";
-import { generateVerificationToken } from "@/helpers/data/tokens";
-import { getUserByEmail } from "@/helpers/data/user";
 import { verificationEmail } from "@/helpers/resend/send";
+import { getUserByEmail } from "@/helpers/user";
+import { generateVerificationToken } from "@/helpers/verification-token";
 import { DEFAULT_SIGNIN_REDIRECT } from "@/routes";
 import { signInSchema } from "@/schemas/sign-in-schema";
 
@@ -28,7 +28,7 @@ export const signIn = async (values: z.infer<typeof signInSchema>) => {
 
     await verificationEmail(verificationToken.email, verificationToken.token);
 
-    return { success: "confirmation email sent" };
+    return { success: "confirm email" };
   }
 
   try {

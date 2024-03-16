@@ -3,10 +3,10 @@
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 
-import { generateVerificationToken } from "@/helpers/data/tokens";
-import { getUserByEmail } from "@/helpers/data/user";
 import { prisma } from "@/helpers/prisma";
 import { verificationEmail } from "@/helpers/resend/send";
+import { getUserByEmail } from "@/helpers/user";
+import { generateVerificationToken } from "@/helpers/verification-token";
 import { HASH_SALT_ROUNDS } from "@/lib/const";
 import { signUpSchema } from "@/schemas/sign-up-schema";
 
@@ -33,5 +33,5 @@ export const signUp = async (values: z.infer<typeof signUpSchema>) => {
 
   await verificationEmail(verificationToken.email, verificationToken.token);
 
-  return { success: "confirmation email sent" };
+  return { success: "confirm email" };
 };

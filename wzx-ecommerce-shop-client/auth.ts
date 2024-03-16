@@ -4,7 +4,7 @@ import NextAuth from "next-auth";
 import authConfig from "@/auth.config";
 import { prisma } from "@/helpers/prisma";
 
-import { getUserById } from "./helpers/data/user";
+import { getUserById } from "./helpers/user";
 
 export const {
   handlers: { GET, POST },

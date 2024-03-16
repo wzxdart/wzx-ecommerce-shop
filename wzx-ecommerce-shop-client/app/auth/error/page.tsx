@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const ErrorPage = () => {
   return (
-    <CardWrapper title="Auth Error" description="Something went wrong">
+    <CardWrapper title="auth Error" description="something went wrong">
       <div className="flex flex-col items-center justify-between">
         <Button variant={"link"}>
           <Link href="/auth/sign-in">sign in</Link>

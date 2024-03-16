@@ -2,12 +2,11 @@
 
 import { FaGoogle } from "react-icons/fa";
 
+import { signInProvider } from "@/actions/sign-in-provider";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { signInProvider } from "@/helpers/actions/sign-in-provider";
 import { cn } from "@/lib/cn";
 
-const SignInProvider = () => {
-  //@todo add try/catch
+const Provider = () => {
   const onSubmit = async () => {
     await signInProvider("google");
   };
@@ -23,4 +22,4 @@ const SignInProvider = () => {
   );
 };
 
-export default SignInProvider;
+export default Provider;

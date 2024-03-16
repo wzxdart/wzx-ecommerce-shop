@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
 import ThemeProvider from "@/app/_providers/theme-provider";
-import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/cn";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["300", "400", "500"] });
@@ -36,7 +35,6 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           <main className="mx-auto max-w-[116rem] px-4 md:px-6 xl:px-8">
             {children}
           </main>
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>

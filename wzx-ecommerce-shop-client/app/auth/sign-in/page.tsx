@@ -1,20 +1,20 @@
 import CardWrapper from "@/components/auth/card-wrapper";
-import SignInForm from "@/components/auth/sign-in-form";
-import SocialLinks from "@/components/auth/sign-in-provider";
+import SignInForm from "@/components/auth/forms/sign-in-form";
+import Provider from "@/components/auth/provider";
 import Separated from "@/components/separated";
 
 const SignInPage = () => {
   return (
     <CardWrapper
-      title="Welcome back"
-      description="We are excited to have your back. Sign in now and access your account"
+      title="welcome back"
+      description="we are excited to have your back. Sign in now and access your account"
       linkHref="/auth/sign-up"
-      linkText="Dont't have an account yet? Sign up"
+      linkText="dont't have an account yet? sign up"
     >
       <div>
         <SignInForm />
-        <Separated />
-        <SocialLinks />
+        <Separated>or</Separated>
+        <Provider />
       </div>
     </CardWrapper>
   );

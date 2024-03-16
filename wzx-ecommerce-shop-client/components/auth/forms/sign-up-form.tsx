@@ -6,29 +6,35 @@ import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { signUp } from "@/actions/sign-up";
+import FormMessage from "@/components/auth/forms/form-message";
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
+  FormMessage as FormErrorMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
-import { signUp } from "@/helpers/actions/sign-up";
 import { signUpSchema } from "@/schemas/sign-up-schema";
 
+import PasswordToggle from "../../password-toggle";
+
 const SignUpForm = () => {
+  //@todo create hook
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenConfirm, setIsOpenConfirm] = useState(false);
+
   const searchParams = useSearchParams();
   const oauthError =
     searchParams.get("error") === "OAuthAccountNotLinked"
       ? "email already use"
       : "";
-
-  const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -45,13 +51,12 @@ const SignUpForm = () => {
     setSuccess("");
 
     startTransition(async () => {
-      const data = await signUp(values);
-      setError(data.error);
-      setSuccess(data.success);
-
-      toast({
-        title: data.error || oauthError || data.success,
-      });
+      signUp(values)
+        .then((data) => {
+          setError(data.error);
+          setSuccess(data.success);
+        })
+        .catch(() => setError("something went wrong"));
     });
   };
 
@@ -74,7 +79,7 @@ const SignUpForm = () => {
                   type="text"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
+              <FormErrorMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -92,7 +97,7 @@ const SignUpForm = () => {
                   type="email"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
+              <FormErrorMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -102,15 +107,21 @@ const SignUpForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem className="relative">
+              <PasswordToggle
+                isOpen={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+                className="absolute bottom-0 right-3 top-0 z-10 my-auto"
+              />
               <FormControl>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="******"
-                  type="password"
+                  placeholder={isOpen ? "123456" : "******"}
+                  type={isOpen ? "text" : "password"}
+                  className="relative"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
+              <FormErrorMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -120,21 +131,31 @@ const SignUpForm = () => {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem className="relative">
+              <PasswordToggle
+                isOpen={isOpenConfirm}
+                onClick={() => setIsOpenConfirm(!isOpenConfirm)}
+                className="absolute bottom-0 right-3 top-0 z-10 my-auto"
+              />
               <FormControl>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="******"
-                  type="password"
+                  placeholder={isOpenConfirm ? "123456" : "******"}
+                  type={isOpenConfirm ? "text" : "password"}
+                  className="relative"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
+              <FormErrorMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
 
-        <Button disabled={isPending} type="submit" className="mt-5 w-full">
-          Sign up
+        <div className="border-b border-t border-zinc-300 py-3 dark:border-zinc-700">
+          <FormMessage error={error || oauthError} success={success} />
+        </div>
+
+        <Button disabled={isPending} type="submit" className="w-full">
+          sign up
         </Button>
       </form>
     </Form>

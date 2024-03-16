@@ -3,10 +3,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { signIn } from "@/actions/sign-in";
+import { signOut } from "@/auth";
+import FormMessage from "@/components/auth/forms/form-message";
+import PasswordToggle from "@/components/password-toggle";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -15,23 +19,24 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage as FormErrorMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
-import { signIn } from "@/helpers/actions/sign-in";
 import { signInSchema } from "@/schemas/sign-in-schema";
 
 const SignInForm = () => {
-  const searchParams = useSearchParams();
-  const oauthError =
-    searchParams.get("error") === "OAuthAccountNotLinked"
-      ? "enail already use"
-      : "";
-
+  //@todo create hook
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const searchParams = useSearchParams();
+  const oauthError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "email already use"
+      : "";
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -42,18 +47,29 @@ const SignInForm = () => {
     },
   });
 
+  const remember = form.getValues("remember");
+
+  useEffect(() => {
+    const handleSignOut = (event: BeforeUnloadEvent) => {
+      if (!remember) signOut();
+    };
+
+    window.addEventListener("beforeunload", handleSignOut);
+
+    return window.removeEventListener("beforeunload", handleSignOut);
+  }, [remember]);
+
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
     setError("");
     setSuccess("");
 
     startTransition(async () => {
-      const data = await signIn(values);
-      setError(data.error);
-      setSuccess(data.success);
-
-      toast({
-        title: data.error || oauthError || data.success,
-      });
+      signIn(values)
+        .then((data) => {
+          setError(data.error);
+          setSuccess(data.success);
+        })
+        .catch(() => setError("something went wrong"));
     });
   };
 
@@ -76,7 +92,7 @@ const SignInForm = () => {
                   type="email"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
+              <FormErrorMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -86,15 +102,21 @@ const SignInForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem className="relative">
+              <PasswordToggle
+                isOpen={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+                className="absolute bottom-0 right-3 top-0 z-10 my-auto"
+              />
               <FormControl>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="******"
-                  type="password"
+                  placeholder={isOpen ? "123456" : "******"}
+                  type={isOpen ? "text" : "password"}
+                  className="relative"
                 />
               </FormControl>
-              <FormMessage className="absolute bottom-0 left-0 right-0 top-11" />
+              <FormErrorMessage className="absolute bottom-0 left-0 right-0 top-11" />
             </FormItem>
           )}
         />
@@ -112,17 +134,21 @@ const SignInForm = () => {
                     onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <FormLabel>Remember me</FormLabel>
+                <FormLabel>remember me</FormLabel>
               </FormItem>
             )}
           />
           <Button variant={"link"}>
-            <Link href="/auth/reset">Forgot your password?</Link>
+            <Link href="/auth/reset">forgot your password?</Link>
           </Button>
         </div>
 
-        <Button disabled={isPending} type="submit" className="mt-5 w-full">
-          Sign In
+        <div className="border-b border-t border-zinc-300 py-3 dark:border-zinc-700">
+          <FormMessage error={error || oauthError} success={success} />
+        </div>
+
+        <Button disabled={isPending} type="submit" className="w-full">
+          sign In
         </Button>
       </form>
     </Form>
