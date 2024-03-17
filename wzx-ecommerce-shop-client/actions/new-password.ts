@@ -17,7 +17,7 @@ export const newPassword = async (
 
   const validatedFields = newPasswordSchema.safeParse(values);
 
-  if (!validatedFields.success) return { error: "invalid fields" };
+  if (!validatedFields.success) return { error: "invalid field" };
 
   const { password } = validatedFields.data;
 
@@ -27,7 +27,7 @@ export const newPassword = async (
 
   const isExpiresAt = new Date(isExistToken.expiresAt) < new Date();
 
-  if (isExpiresAt) return { error: "token has expires" };
+  if (isExpiresAt) return { error: "token expired" };
 
   const isExistUser = await getUserByEmail(isExistToken.email);
 

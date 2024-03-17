@@ -3,8 +3,10 @@ import NextAuth from "next-auth";
 
 import authConfig from "@/auth.config";
 import { prisma } from "@/helpers/prisma";
+import { getUserById } from "@/helpers/user";
 
-import { getUserById } from "./helpers/user";
+import { getTwoFAConfirmByUserId } from "./helpers/two-fa-confirm";
+import { SESSION_LIFYCYCLE_TIME_IN_SECONDS } from "./lib/const";
 
 export const {
   handlers: { GET, POST },
@@ -38,6 +40,18 @@ export const {
 
       if (!isExistUser?.emailVerified) return false;
 
+      if (isExistUser.isTwoFA) {
+        const twoFAConfirm = await getTwoFAConfirmByUserId(isExistUser.id);
+
+        if (!twoFAConfirm) return false;
+
+        await prisma.twoFAConfirm.delete({
+          where: { id: twoFAConfirm.id },
+        });
+
+        return true;
+      }
+
       return true;
     },
   },
@@ -54,6 +68,9 @@ export const {
     error: "/auth/error",
   },
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
+  session: {
+    strategy: "jwt",
+    maxAge: SESSION_LIFYCYCLE_TIME_IN_SECONDS,
+  },
   ...authConfig,
 });

@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 
 import { prisma } from "@/helpers/prisma";
-import { sendVerificationEmail } from "@/helpers/resend/send";
+import { sendVerificationTokenEmail } from "@/helpers/resend/send";
 import { getUserByEmail } from "@/helpers/user";
 import { createVerificationToken } from "@/helpers/verification-token";
 import { HASH_SALT_ROUNDS } from "@/lib/const";
@@ -31,7 +31,10 @@ export const signUp = async (values: z.infer<typeof signUpSchema>) => {
 
   const verificationToken = await createVerificationToken(email);
 
-  await sendVerificationEmail(verificationToken.email, verificationToken.token);
+  await sendVerificationTokenEmail(
+    verificationToken.email,
+    verificationToken.token,
+  );
 
   return { success: "confirm sent on email" };
 };

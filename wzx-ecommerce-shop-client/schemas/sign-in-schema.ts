@@ -41,5 +41,6 @@ export const signInSchema = z.object({
     .refine((field) => field.trim().length <= PASSWORD_MAX_LENGTH, {
       message: PASSWORD_MAX_LENGTH_MESSAGE,
     }),
+  twoFACode: z.string().optional(),
   remember: z.boolean().optional(),
 });

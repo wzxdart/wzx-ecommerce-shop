@@ -11,7 +11,7 @@ export const newVerification = async (token: string) => {
 
   const isExpiresAt = new Date(isExistToken.expiresAt) < new Date();
 
-  if (isExpiresAt) return { error: "token has expires" };
+  if (isExpiresAt) return { error: "token expired" };
 
   const isExistUser = await getUserByEmail(isExistToken.email);
 
